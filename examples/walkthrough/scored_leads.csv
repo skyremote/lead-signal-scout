@@ -1,6 +1,6 @@
 name,company,score,tier,is_personal,rationale,best_evidence_url,evidence_count,url
-Jane Goodall,Jane Goodall Institute,100,Strong,True,"Personal messages, talks, and podcasts consistently reflect her advocacy for sustainability.",https://news.janegoodall.org/2025/04/22/dr-jane-goodalls-2025-earth-day-message/,10,
-Christiana Figueres,Global Optimism,100,Strong,True,Multiple talks and interviews clearly show Figueres' advocacy for personal sustainability and climate action.,https://www.ted.com/talks/christiana_figueres_the_case_for_stubborn_optimism_on_climate,10,
-Bill McKibben,350.org,100,Strong,True,Multiple articles and podcast appearances directly authored by Bill McKibben demonstrate his strong personal advocacy for sustainability.,https://billmckibben.substack.com/p/your-money-is-your-carbon,10,
-Satya Nadella,Microsoft,70,Medium,True,"Personal posts and comments highlight his advocacy for sustainability, despite many sources being corporate-focused.",https://www.cnbc.com/2020/01/16/microsoft-ceo-capitalism-is-in-jeopardy-if-we-do-not-act-on-climate-change.html,10,
-A Generic Salesperson,Acme Widgets,0,None,False,No evidence directly attributable to the person; all sources are not tied.,,10,
+Jane Goodall,Jane Goodall Institute,100,Strong,True,"Jane Goodall actively advocates for sustainability through her personal messages, talks, and media appearances.",https://news.janegoodall.org/2025/04/22/dr-jane-goodalls-2025-earth-day-message/,10,https://www.linkedin.com/in/janegoodall
+Bill McKibben,350.org,100,Strong,True,Bill McKibben's writings and interviews directly advocate for sustainability and climate action.,https://billmckibben.substack.com/p/your-money-is-your-carbon,10,
+Christiana Figueres,Global Optimism,85,Strong,True,"Figueres actively engages in public speaking and media about climate issues, showing strong personal advocacy.",https://www.youtube.com/watch?v=KVVW5eGiETI,10,https://www.linkedin.com/in/christianafigueres
+Satya Nadella,Microsoft,0,None,False,"Evidence only discusses Microsoft's sustainability efforts, not personal advocacy from Satya Nadella.",,10,
+A Generic Salesperson,Acme Widgets,0,None,False,No evidence directly attributed to the person about personal sustainability advocacy.,,10,

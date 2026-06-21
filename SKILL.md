@@ -77,7 +77,7 @@ used if present (case-insensitive header detection). Outputs land in `out/`:
 
 ## Stage 2 (optional): warm outreach
 
-Draft trigger-led, sub-80-word, *sourced* first touches for the shortlist:
+Draft trigger-led, *sourced* first touches (target under 80 words) for the shortlist:
 
 ```bash
 signal_scout.py outreach --shortlist out/shortlist.csv \
@@ -85,7 +85,8 @@ signal_scout.py outreach --shortlist out/shortlist.csv \
 ```
 
 Writes `outreach.md` + `outreach.csv`. Each opener leads with a specific fact about
-the person and bridges to the offer. **It never sends** — review, personalise the
+the person and bridges to the offer. Uses the same LLM provider as scoring (your
+`.env` `LLM_PROVIDER`, or `--provider`). **It never sends** — review, personalise the
 last 10%, send yourself. Scraped evidence is treated as untrusted (prompt-injection
 guarded); still sanity-check each draft's cited source before sending. A manual,
 paste-anywhere version of the prompt is in [outreach-template.md](outreach-template.md).
@@ -99,6 +100,9 @@ A real end-to-end example (scores + drafts) is in [examples/walkthrough/](exampl
 - **The LLM can over-credit.** The "cite or it's zero" rule and the company-level
   exclusion reduce this, but spot-check the top of the shortlist before sending.
 - **Cost scales with leads × per-lead.** Test with `--limit` first.
+- **Data leaves the machine.** Names + companies go to Exa, evidence snippets to
+  your LLM, `--scrape` URLs to Firecrawl. For private client lists, mind each
+  provider's policy and anonymise shared shortlists.
 
 ## Common mistakes
 

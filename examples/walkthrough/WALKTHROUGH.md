@@ -25,19 +25,25 @@ Produces:
 - [`shortlist.csv`](shortlist.csv) — only those above the threshold (60).
 - [`brief.md`](brief.md) — the human-readable summary.
 
-What the scores show — the tool **discriminates**:
+What the scores show — the tool **discriminates** (figures from this committed run):
 
 | Score | Name | Tier | Why |
 |------:|------|------|-----|
 | 100 | Jane Goodall | Strong | Lifelong personal environmental advocacy, in her own words. |
 | 100 | Bill McKibben | Strong | Author/activist; his own bylines and podcasts on climate finance. |
-| 100 | Christiana Figueres | Strong | Personal climate leadership (her TED talk, interviews). |
-| 70 | Satya Nadella | Medium | Discusses it publicly, but mostly corporate-framed. |
+| 85 | Christiana Figueres | Strong | Personal climate leadership (her talks, interviews). |
+| 0 | Satya Nadella | None | Speaks on climate, but corporate-framed — not personal advocacy. |
 | 0 | A Generic Salesperson | None | No evidence attributable to this specific person. |
 
-The last row is the important one: a generic/unmatched lead correctly scores **0**
-because of the identity-match rule. On-topic content that can't be tied to the
-actual person does not count.
+The bottom two rows are the point. A generic/unmatched lead scores **0** (the
+identity-match rule — on-topic content that can't be tied to the person doesn't
+count), and a CEO who only speaks on the topic in a corporate frame also scores low
+— that's *person-level* signal working as intended.
+
+> **Scores vary run to run.** LLM scoring is non-deterministic, so your numbers
+> won't match these exactly (Satya Nadella, a borderline case, scored 70 on an
+> earlier run and 0 here). The *ranking* — real advocates high, non-personal low —
+> is what's stable. Use a stronger `--model` for tighter consistency.
 
 ## 2. Draft warm outreach (Stage 2)
 
@@ -51,26 +57,25 @@ python3 scripts/signal_scout.py outreach \
 ```
 
 Produces [`outreach.md`](outreach.md) and [`outreach.csv`](outreach.csv) — a
-trigger-led, sub-80-word, **sourced** first touch per shortlisted lead. Each opens
-with a specific fact about that person (their Earth Day message, their TED talk,
-their New Yorker piece) and bridges to the offer. You review, personalise the last
-10%, and you send — the tool never sends anything.
+trigger-led, **sourced** first touch per shortlisted lead (target under 80 words).
+Each opens with a specific, sourced fact about that person and bridges to the offer.
+You review, personalise the last 10%, and you send — the tool never sends anything.
 
 > Always read these before sending. The drafts cite a source URL; sanity-check
 > that the publication name in the copy matches the actual source.
 
 ## Anonymisation
 
-These demo leads are public figures, so the brief names them. For a **private**
-client list, the same `brief.md` reads like this — the deliverable can be shared
-without exposing the list:
+These demo leads are public figures, so the brief names them. With a **private**
+client list you would mask the names before sharing the deliverable. Below is the
+masked view of *this* run's real `brief.md` — the same scores, names redacted:
 
 | Score | Lead | Company | Why |
 |------:|------|---------|-----|
-| 92 | J. G. | Climate non-profit | Strong personal advocacy in own posts/talks. |
-| 88 | C. F. | Advisory firm | Public climate leadership, own interviews. |
-| 71 | S. N. | Enterprise software | Engaged but corporate-framed. |
-| 0 | (lead 41) | Industrial supplier | No personal signal attributable. |
+| 100 | J. G. | Conservation non-profit | Lifelong personal environmental advocacy, in her own words. |
+| 100 | B. M. | Climate org | Own bylines and podcasts on climate finance. |
+| 85 | C. F. | Climate advisory | Personal climate leadership (talks, interviews). |
+| 0 | S. N. | Enterprise software | Speaks on climate, but corporate-framed — not personal. |
 
 Nothing about a lead leaves your machine except the search query sent to Exa
 (name + company) and the evidence snippets sent to your chosen LLM for scoring.

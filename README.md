@@ -42,7 +42,7 @@ the shortlist — it never sends; you review and send.
 
 ```bash
 # 1. Get the code
-git clone https://github.com/<your-org>/lead-signal-scout.git
+git clone https://github.com/skyremote/lead-signal-scout.git
 cd lead-signal-scout
 
 # 2. Install the one dependency
@@ -83,7 +83,8 @@ python3 scripts/signal_scout.py outreach \
 ```
 
 Writes `out/outreach.md` and `out/outreach.csv`. **It never sends** — you review,
-personalise the last 10%, and send yourself. The evidence scraped from the web is
+personalise the last 10%, and send yourself. It uses the same LLM provider as
+scoring (your `.env` `LLM_PROVIDER`, or pass `--provider`). Scraped web evidence is
 treated as untrusted data (prompt-injection guarded), but always sanity-check a
 draft's cited source before sending.
 
@@ -112,16 +113,17 @@ python3 scripts/signal_scout.py run --in your_leads.csv --config config/my-signa
 
 ## Use a different LLM
 
-```bash
-# OpenRouter (one key, any model):
-python3 scripts/signal_scout.py run --in leads.csv --provider openrouter --out out/
+Scoring defaults to Anthropic. If you're on OpenAI or OpenRouter, **set it once in
+`.env`** so every command (`run`, `score`, `outreach`) picks it up — no per-command
+flag to forget:
 
-# OpenAI:
-python3 scripts/signal_scout.py run --in leads.csv --provider openai --out out/
+```
+LLM_PROVIDER=openai        # or: openrouter
+# LLM_MODEL=gpt-4o-mini    # optional model override
 ```
 
-Or set `LLM_PROVIDER` / `LLM_MODEL` in your `.env`. Scoring defaults to a cheap,
-fast model; pass `--model` to use a stronger one.
+Or pass it per command instead: `--provider openrouter`. Scoring uses a cheap,
+fast model by default; pass `--model` for a stronger one.
 
 ## Useful flags
 
@@ -143,6 +145,16 @@ Run `python3 scripts/signal_scout.py <command> --help` for the full list.
 - **Spot-check the top of your shortlist** before you send. The rubric is strict
   ("cite or it's zero", company-level excluded) but LLMs can still over-credit.
 - **Cost scales** with leads × `--per-lead`. Start with `--limit`.
+
+## Data handling
+
+Running the tool sends data to third parties: each lead's **name + company** go to
+Exa as a search query, the **evidence snippets** go to your chosen **LLM provider**
+for scoring/outreach, and with `--scrape` the top **URL** goes to Firecrawl. For a
+private client or CRM list, that is real personal data leaving your machine. Check
+each provider's retention/training policy, and anonymise names in any shortlist you
+share onward (see the [walkthrough](examples/walkthrough/WALKTHROUGH.md)). `--scrape`
+fetches third-party-ranked URLs, so enable it only on lists you trust.
 
 ## Also works as an agent skill
 
