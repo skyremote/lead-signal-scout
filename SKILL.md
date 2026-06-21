@@ -52,6 +52,7 @@ person's full private LinkedIn feed (most of it is gated — see Limitations).
 | Different topic | `... run --in leads.csv --config config/diversity-advocacy.example.json` |
 | Just discovery | `signal_scout.py gather --in leads.csv --out out/` |
 | Score later | `signal_scout.py score --evidence out/evidence.jsonl --out out/` |
+| Draft outreach (Stage 2) | `signal_scout.py outreach --offer "..." --shortlist out/shortlist.csv` |
 | Use OpenRouter | `... run ... --provider openrouter` |
 
 Run any command with `--help` for all flags (`--per-lead`, `--days`, `--scrape`,
@@ -76,9 +77,19 @@ used if present (case-insensitive header detection). Outputs land in `out/`:
 
 ## Stage 2 (optional): warm outreach
 
-Once you have a shortlist, draft trigger-led, sub-80-word, *sourced* outreach for
-each person using their best evidence URL. See [outreach-template.md](outreach-template.md)
-for the prompt — paste a shortlist row in and it writes the opener.
+Draft trigger-led, sub-80-word, *sourced* first touches for the shortlist:
+
+```bash
+signal_scout.py outreach --shortlist out/shortlist.csv \
+  --evidence out/evidence.jsonl --out out/ --offer "what you're selling, one line"
+```
+
+Writes `outreach.md` + `outreach.csv`. Each opener leads with a specific fact about
+the person and bridges to the offer. **It never sends** — review, personalise the
+last 10%, send yourself. Scraped evidence is treated as untrusted (prompt-injection
+guarded); still sanity-check each draft's cited source before sending. A manual,
+paste-anywhere version of the prompt is in [outreach-template.md](outreach-template.md).
+A real end-to-end example (scores + drafts) is in [examples/walkthrough/](examples/walkthrough/WALKTHROUGH.md).
 
 ## Limitations (be honest with users)
 

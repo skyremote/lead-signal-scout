@@ -18,14 +18,18 @@ Built by [NavAIgate](https://navaigate.dev). MIT licensed. **Bring your own API 
 ## What it does
 
 ```
-leads.csv ──▶ gather (Exa finds each person's public footprint)
-          ──▶ score  (an LLM judges 0-100 with the citation)
-          ──▶ rank   ──▶ scored_leads.csv + shortlist.csv + brief.md
+leads.csv ──▶ gather   (Exa finds each person's public footprint)
+          ──▶ score    (an LLM judges 0-100 with the citation)
+          ──▶ rank     ──▶ scored_leads.csv + shortlist.csv + brief.md
+          ──▶ outreach (Stage 2: warm, sourced first-touch per shortlisted lead)
 ```
 
 You get a ranked CSV of everyone, a shortlist of the people above your threshold,
-and a readable brief. An optional Stage 2 ([outreach-template.md](outreach-template.md))
-drafts warm, sourced outreach for the shortlist.
+and a readable brief. Stage 2 (`outreach`) then drafts warm, sourced outreach for
+the shortlist — it never sends; you review and send.
+
+**See a real end-to-end run** in [examples/walkthrough/](examples/walkthrough/WALKTHROUGH.md)
+— actual scored output and outreach drafts, reproducible with your own keys.
 
 ## You need
 
@@ -66,6 +70,22 @@ python3 scripts/signal_scout.py run --in your_leads.csv --out out/
 ```
 
 Open `out/shortlist.csv` (or `out/brief.md`) for the warm leads. That's it.
+
+### Stage 2: draft the outreach
+
+Turn the shortlist into warm, sourced first touches — each opens with a specific
+fact about that person and bridges to your offer:
+
+```bash
+python3 scripts/signal_scout.py outreach \
+  --shortlist out/shortlist.csv --evidence out/evidence.jsonl --out out/ \
+  --offer "what you're selling, in one line"
+```
+
+Writes `out/outreach.md` and `out/outreach.csv`. **It never sends** — you review,
+personalise the last 10%, and send yourself. The evidence scraped from the web is
+treated as untrusted data (prompt-injection guarded), but always sanity-check a
+draft's cited source before sending.
 
 ### Your input CSV
 
