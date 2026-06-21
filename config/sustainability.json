@@ -1,0 +1,18 @@
+{
+  "signal_name": "personal sustainability advocacy",
+  "definition": "This person PERSONALLY and publicly shows they care about environmental sustainability or climate — through their own LinkedIn posts or comments, articles or bylines they wrote, talks or panels they gave, podcast appearances, or volunteer/board roles. This is person-level signal, NOT their employer's corporate ESG page or a company sustainability report they had nothing to do with.",
+  "keywords": [
+    "sustainability",
+    "climate",
+    "net zero",
+    "carbon",
+    "decarbonisation",
+    "ESG",
+    "circular economy",
+    "renewable",
+    "environmental",
+    "cleantech"
+  ],
+  "exclude_company_level": true,
+  "threshold": 60
+}

@@ -1,0 +1,16 @@
+{
+  "signal_name": "personal advocacy for diversity and inclusion",
+  "definition": "This person PERSONALLY and publicly champions diversity, equity and inclusion — their own posts, talks, mentoring, bylines or community/board work. Person-level signal, NOT their employer's corporate DEI page.",
+  "keywords": [
+    "diversity",
+    "inclusion",
+    "DEI",
+    "women in tech",
+    "mentoring",
+    "belonging",
+    "underrepresented",
+    "equity"
+  ],
+  "exclude_company_level": true,
+  "threshold": 60
+}
